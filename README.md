@@ -4,7 +4,7 @@
 
 Engineers ingest finalized PM requirements, generate a technical spec with AI assistance, translate it back to PM language for sign-off, develop guided by spec context, detect drift, and ship with a done gate — all in git, no external tools required.
 
-See **[docs/example.md](docs/example.md)** for a full end-to-end walkthrough.
+See **[docs/example.md](docs/example.md)** for a full end-to-end walkthrough. See **[docs/roadmap.md](docs/roadmap.md)** for what's coming next.
 
 ---
 

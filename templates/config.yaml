@@ -1,0 +1,28 @@
+# reqd — requirements-driven development lifecycle
+# https://github.com/bountyC0d3r/reqd
+
+# Project context (optional)
+# Shown to AI when generating specs and translations.
+# Add your tech stack, conventions, domain knowledge, etc.
+#
+# context: |
+#   Tech stack: TypeScript, Node.js, PostgreSQL
+#   We use conventional commits
+#   Domain: SaaS B2B platform
+
+# Required sign-offs before a change can be archived (default: pm only)
+#
+# required_sign_offs:
+#   - pm
+
+# Per-artifact rules (optional)
+# Custom instructions for AI when generating specific artifacts.
+#
+# rules:
+#   translation:
+#     - Keep translations under 300 words
+#     - Always include an "Open questions" section
+#   tasks:
+#     - Break tasks into chunks completable in under 2 hours
+#   design:
+#     - Always include a "Risks" section

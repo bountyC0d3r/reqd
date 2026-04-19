@@ -45,11 +45,17 @@ Combines with `git blame` to give complete traceability: who changed it (git) + 
 
 ---
 
-## Backlog
+## Implemented
 
 ### `/reqd:recap` — Daily Standup Summary
 
-Generates a narrative summary of in-flight work — progress since last update, current task, blockers, PM sign-off state. Copy-pasteable into Slack or a standup doc. Turns reqd from a milestone tool into a daily tool.
+Generates a narrative standup summary for one or all active changes. Uses git commit history to determine progress since the last update. Output covers: completed tasks (yesterday), current task (today), any blockers, and PM sign-off state. Copy-pasteable into Slack or a standup doc. Turns reqd from a milestone tool into a daily ritual.
+
+See [`docs/example.md`](example.md) for a full walkthrough.
+
+---
+
+## Backlog
 
 ### Requirements Staleness Detection
 

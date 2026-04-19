@@ -35,11 +35,11 @@ Check if `reqd/changes/<name>/` already exists using the Glob tool. If it does:
 
 ### 3. Gather requirements
 
-Use AskUserQuestion:
+Use a single AskUserQuestion with two fields:
 - "Paste your requirements (from Jira, JPD, or describe the feature):"
+- "Jira/JPD reference (optional, e.g. JPD-412) — leave blank to skip:"
 
-Then use AskUserQuestion:
-- "Optional: Jira/JPD reference (e.g. JPD-412) — press enter to skip:"
+Collect both answers in one round trip before proceeding.
 
 ### 4. Create directory structure
 

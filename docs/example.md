@@ -258,6 +258,90 @@ Needs attention:
 Copy the block above into Slack or your standup doc.
 ```
 
+### `/reqd:update mfa-rollout`
+
+Engineer posts a progress update to the Jira ticket mid-development.
+
+```
+/reqd:update mfa-rollout
+
+◆ Reading change state...
+◆ Composing progress comment...
+
+  reqd update — mfa-rollout (2026-04-11)
+
+  Progress: 3/8 tasks complete
+
+  Completed since last update:
+    ✓ Add TOTP secret generation to user model
+    ✓ Build QR code enrollment flow
+    ✓ Add TOTP verification on login
+
+  Current task: Add recovery code generation (90-day expiry)
+
+  Sign-off: approved ✅  (revision 2, 2026-04-10, @sarah)
+
+? Post this comment to JPD-412? [Y/n]
+> Y
+
+◆ Posting to JPD-412 via Jira MCP...
+✓ Comment posted.
+✓ last_update snapshot saved (tasks_complete: 3, posted_at: 2026-04-11)
+```
+
+---
+
+## Phase 2b — Jira Sync
+
+### `/reqd:sync mfa-rollout` — ticket unchanged
+
+```
+reqd sync: mfa-rollout
+◆ Fetching JPD-412 via Jira MCP...
+
+✅ No changes detected — ticket matches spec snapshot (2026-04-10)
+```
+
+### `/reqd:sync mfa-rollout` — ticket updated, change excluded
+
+PM added a new requirement to JPD-412 after the spec was locked.
+
+```
+reqd sync: mfa-rollout
+◆ Fetching JPD-412 via Jira MCP...
+
+⚠ Ticket updated since spec was locked (2026-04-10 → 2026-05-01)
+
+  description: changed
+  priority:    Medium → High
+
+Description diff:
+  + "Must also support hardware security keys (FIDO2/WebAuthn)"
+
+? Include this change in the current spec? [y/N]
+> N
+
+? Reason for excluding:
+> Hardware key support is a separate workstream with different infra
+  requirements and timeline. A new ticket should be raised.
+
+✓ Comment posted to JPD-412:
+
+  reqd sync — mfa-rollout (2026-05-01)
+
+  Change reviewed: "Must also support hardware security keys (FIDO2/WebAuthn)"
+
+  Decision: Out of scope for this change.
+  Reason: Hardware key support is a separate workstream with different
+  infra requirements and timeline. A new ticket should be raised.
+
+  Spec remains valid. Development continuing on mfa-rollout.
+
+✓ Snapshot updated to 2026-05-01
+
+Next: /reqd:task mfa-rollout
+```
+
 ---
 
 ## Phase 3 — Review

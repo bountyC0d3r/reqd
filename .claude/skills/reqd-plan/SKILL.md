@@ -125,7 +125,33 @@ status: planning
 ```
 (Stays planning until PM sign-off.)
 
-### 7. Confirm and guide
+### 7. Write jira_snapshot (if ref is set)
+
+Read `.reqd.yaml`. If `ref` field is set and non-empty:
+
+- Use the Jira MCP server to fetch the ticket identified by `ref`
+- Retrieve: `summary`, `description`, `priority`, `labels`
+- Compute `description_hash` as a short hash of the description text
+
+If the Jira MCP is unavailable or the fetch fails, skip this step silently and print a
+warning — do not block the plan from completing:
+
+```
+⚠ Could not fetch Jira snapshot for <ref> — Jira MCP unavailable. Run /reqd:sync <name> later to take the initial snapshot.
+```
+
+If fetch succeeds, append to `.reqd.yaml` (preserve all existing fields):
+
+```yaml
+jira_snapshot:
+  taken_at: <today's date YYYY-MM-DD>
+  summary: <ticket summary>
+  description_hash: <hash>
+  priority: <priority>
+  labels: <labels array>
+```
+
+### 8. Confirm and guide
 
 Print:
 

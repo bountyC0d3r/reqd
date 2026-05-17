@@ -2,39 +2,103 @@
 set -e
 
 # reqd — requirements-driven development lifecycle for Claude Code
-# https://github.com/your-org/reqd
+# https://github.com/bountyC0d3r/reqd
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 LOCAL=false
+ASSISTANT="claude"
 
-# Parse flags
+# ---------------------------------------------------------------------------
+# Usage
+# ---------------------------------------------------------------------------
+usage() {
+  cat <<EOF
+
+Usage: ./install.sh [assistant] [--local] [--help]
+
+  assistant   Target AI assistant. One of: claude (default), opencode
+
+  --local     Install into the current project directory only
+              (default: install globally into the assistant's config home)
+
+  --help, -h  Show this help text
+
+Target directories resolved per assistant:
+
+  claude
+    global  CLAUDE_CONFIG_DIR  →  \${XDG_CONFIG_HOME}/claude  →  ~/.claude
+    local   ./.claude
+
+  opencode
+    global  \${XDG_CONFIG_HOME}/opencode  →  ~/.config/opencode
+    local   ./.opencode
+
+Examples:
+  ./install.sh                     # claude, global
+  ./install.sh --local             # claude, local
+  ./install.sh opencode            # opencode, global
+  ./install.sh opencode --local    # opencode, local
+
+EOF
+}
+
+# ---------------------------------------------------------------------------
+# Parse args  (order-independent: assistant + --local can appear in any order)
+# ---------------------------------------------------------------------------
 for arg in "$@"; do
   case $arg in
-    --local) LOCAL=true ;;
-    --help|-h)
-      echo "Usage: ./install.sh [--local]"
-      echo ""
-      echo "  (default)  Install globally to ~/.claude/ — available in all projects"
-      echo "  --local    Install to ./.claude/ in current directory only"
-      exit 0
+    --local)           LOCAL=true ;;
+    --help|-h)         usage; exit 0 ;;
+    claude|opencode)   ASSISTANT="$arg" ;;
+    *)
+      echo "Error: unknown argument '$arg'" >&2
+      echo "Run ./install.sh --help for usage." >&2
+      exit 1
       ;;
   esac
 done
 
-# Determine target
+# ---------------------------------------------------------------------------
+# Resolve target directory
+# ---------------------------------------------------------------------------
+resolve_global_dir() {
+  case "$ASSISTANT" in
+    claude)
+      if [ -n "${CLAUDE_CONFIG_DIR:-}" ]; then
+        echo "$CLAUDE_CONFIG_DIR"
+      elif [ -n "${XDG_CONFIG_HOME:-}" ]; then
+        echo "$XDG_CONFIG_HOME/claude"
+      else
+        echo "$HOME/.claude"
+      fi
+      ;;
+    opencode)
+      if [ -n "${XDG_CONFIG_HOME:-}" ]; then
+        echo "$XDG_CONFIG_HOME/opencode"
+      else
+        echo "$HOME/.config/opencode"
+      fi
+      ;;
+  esac
+}
+
 if [ "$LOCAL" = true ]; then
-  TARGET_DIR="$(pwd)/.claude"
-  SCOPE="local ($(pwd))"
+  TARGET_DIR="$(pwd)/.$ASSISTANT"
+  SCOPE="local ($(pwd)/.$ASSISTANT)"
 else
-  TARGET_DIR="$HOME/.claude"
-  SCOPE="global (~/.claude)"
+  TARGET_DIR="$(resolve_global_dir)"
+  SCOPE="global ($TARGET_DIR)"
 fi
 
+# ---------------------------------------------------------------------------
+# Install
+# ---------------------------------------------------------------------------
 echo ""
 echo "reqd installer"
 echo "────────────────────────────────────"
-echo "  scope:  $SCOPE"
-echo "  source: $REPO_DIR"
+echo "  assistant: $ASSISTANT"
+echo "  scope:     $SCOPE"
+echo "  source:    $REPO_DIR"
 echo ""
 
 # Create target directories

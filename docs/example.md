@@ -205,6 +205,61 @@ Unspecced decision detected:
 
 ---
 
+### `/reqd:recap mfa-rollout`
+
+Engineer runs this the next morning before standup.
+
+```
+reqd recap: mfa-rollout
+2026-04-11 | ref: JPD-412
+─────────────────────────────────────────────
+
+Yesterday
+  ✓ Completed: Add TOTP secret generation to user model
+  ✓ Completed: Build QR code enrollment flow
+  ✓ Completed: Add TOTP verification on login
+
+Today
+  → Add recovery code generation (90-day expiry)
+
+Blockers
+  None.
+
+Sign-off
+  approved ✅  (revision 2, 2026-04-10, @sarah)
+
+Tasks: 3/8 complete
+─────────────────────────────────────────────
+```
+
+Running without a name gives a compact summary across all active changes:
+
+```
+reqd recap — 2026-04-11
+─────────────────────────────────────────────
+
+mfa-rollout (JPD-412)
+  Yesterday: Completed 3 tasks (TOTP generation, enrollment, verification)
+  Today:     Add recovery code generation (90-day expiry)
+  Sign-off:  approved ✅
+  Tasks:     3/8
+
+user-onboarding (JPD-388)
+  Yesterday: no updates
+  Today:     Scaffold onboarding wizard step 1
+  Sign-off:  ⚠ blocked — revision 1 concerns pending
+  Tasks:     0/5
+
+─────────────────────────────────────────────
+Needs attention:
+  ⚠ user-onboarding: PM requested clearer empty-state copy before proceeding
+
+─────────────────────────────────────────────
+Copy the block above into Slack or your standup doc.
+```
+
+---
+
 ## Phase 3 — Review
 
 ### `/reqd:review mfa-rollout`

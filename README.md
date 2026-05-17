@@ -100,6 +100,16 @@ Show health of a change. Without a name, shows all active changes.
 /reqd:status
 ```
 
+### `/reqd:recap [change-name]`
+Generate a daily standup summary. Uses git commit history to determine progress since the last update. Output covers: what was completed yesterday, today's current task, any blockers, and PM sign-off state. Copy-pasteable into Slack or a standup doc.
+
+Without a name, summarizes all active changes in a compact multi-change format.
+
+```
+/reqd:recap mfa-rollout
+/reqd:recap
+```
+
 ### `/reqd:task <change-name> [task-number]`
 Work on the next task (or a specific task) with full spec context loaded. AI assistance is grounded in the spec and PM sign-off notes. Unspecced decisions are logged to `deviations.md`.
 

@@ -100,6 +100,24 @@ Show health of a change. Without a name, shows all active changes.
 /reqd:status
 ```
 
+### `/reqd:sync <change-name>`
+Check if the Jira ticket has changed since the spec was locked. Surfaces a diff and asks whether to include the change in scope. Posts a Jira comment recording the decision. When scope expands, gates snapshot advancement on PM re-approval.
+
+Requires a Jira MCP server and a `ref` field in `.reqd.yaml`.
+
+```
+/reqd:sync mfa-rollout
+```
+
+### `/reqd:update <change-name>`
+Post an auto-generated progress comment to the Jira ticket. Covers tasks completed since the last update, current task, sign-off state, and new deviations. Engineer confirms before posting.
+
+Requires a Jira MCP server and a `ref` field in `.reqd.yaml`.
+
+```
+/reqd:update mfa-rollout
+```
+
 ### `/reqd:recap [change-name]`
 Generate a daily standup summary. Uses git commit history to determine progress since the last update. Output covers: what was completed yesterday, today's current task, any blockers, and PM sign-off state. Copy-pasteable into Slack or a standup doc.
 

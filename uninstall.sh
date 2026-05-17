@@ -15,7 +15,7 @@ usage() {
 
 Usage: ./uninstall.sh [assistant] [--local] [--help]
 
-  assistant   Target AI assistant. One of: claude (default), opencode, cursor
+  assistant   Target AI assistant. One of: claude (default), opencode
 
   --local     Uninstall from the current project directory only
               (default: uninstall from the assistant's global config home)
@@ -32,16 +32,11 @@ Target directories resolved per assistant:
     global  \${XDG_CONFIG_HOME}/opencode  →  ~/.config/opencode
     local   ./.opencode
 
-  cursor
-    global  ~/.cursor
-    local   ./.cursor
-
 Examples:
   ./uninstall.sh                     # claude, global
   ./uninstall.sh --local             # claude, local
   ./uninstall.sh opencode            # opencode, global
   ./uninstall.sh opencode --local    # opencode, local
-  ./uninstall.sh cursor --local      # cursor, local
 
 EOF
 }
@@ -51,9 +46,9 @@ EOF
 # ---------------------------------------------------------------------------
 for arg in "$@"; do
   case $arg in
-    --local)      LOCAL=true ;;
-    --help|-h)    usage; exit 0 ;;
-    claude|opencode|cursor) ASSISTANT="$arg" ;;
+    --local)           LOCAL=true ;;
+    --help|-h)         usage; exit 0 ;;
+    claude|opencode)   ASSISTANT="$arg" ;;
     *)
       echo "Error: unknown argument '$arg'" >&2
       echo "Run ./uninstall.sh --help for usage." >&2
@@ -82,9 +77,6 @@ resolve_global_dir() {
       else
         echo "$HOME/.config/opencode"
       fi
-      ;;
-    cursor)
-      echo "$HOME/.cursor"
       ;;
   esac
 }

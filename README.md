@@ -10,28 +10,40 @@ See **[docs/example.md](docs/example.md)** for a full end-to-end walkthrough. Se
 
 ## Install
 
+reqd supports **Claude Code** (default) and **OpenCode**.
+
 ```bash
-# Clone and install globally (available in all projects)
+# Clone the repo
 git clone https://github.com/bountyC0d3r/reqd.git
 cd reqd
-./install.sh
+```
+
+```bash
+# Install globally (available in all projects)
+./install.sh                     # Claude Code (default)
+./install.sh opencode            # OpenCode
 ```
 
 ```bash
 # Or install locally (current project only)
-./install.sh --local
+./install.sh --local             # Claude Code, local
+./install.sh opencode --local    # OpenCode, local
 ```
 
 ```bash
-# One-liner (global)
+# One-liner — installs for Claude Code globally
 curl -fsSL https://raw.githubusercontent.com/bountyC0d3r/reqd/main/install.sh | bash
 ```
 
 To uninstall:
 ```bash
-./uninstall.sh          # global
-./uninstall.sh --local  # local
+./uninstall.sh                   # Claude Code, global
+./uninstall.sh --local           # Claude Code, local
+./uninstall.sh opencode          # OpenCode, global
+./uninstall.sh opencode --local  # OpenCode, local
 ```
+
+Run `./install.sh --help` or `./uninstall.sh --help` for full usage.
 
 ---
 
@@ -218,7 +230,7 @@ A change is **done** when:
 
 ## Requirements
 
-- [Claude Code](https://claude.ai/code) CLI
+- Claude Code or OpenCode
 - No other dependencies
 
 ---

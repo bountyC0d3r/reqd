@@ -53,6 +53,20 @@ Generates a narrative standup summary for one or all active changes. Uses git co
 
 See [`docs/example.md`](example.md) for a full walkthrough.
 
+### `/reqd:sync` — Jira Staleness Detection
+
+Detects if the Jira ticket has changed since the spec was locked. Surfaces a diff, asks the
+engineer whether to include the change in scope, and posts a comment to Jira recording the
+decision. When scope is expanded, gates snapshot advancement on PM re-approval.
+
+### `/reqd:update` — Jira Progress Comment
+
+Posts an auto-generated progress comment to the Jira ticket. Comment covers tasks completed
+since the last update, the current task, PM sign-off state, and new deviations. Engineer
+confirms before posting.
+
+Both commands require a Jira MCP server to be configured and a `ref` field in `.reqd.yaml`.
+
 ---
 
 ## Backlog
@@ -60,6 +74,12 @@ See [`docs/example.md`](example.md) for a full walkthrough.
 ### Requirements Staleness Detection
 
 When a change has a Jira/JPD `ref` in `.reqd.yaml`, detect if the source ticket has been updated since the spec was created. Surface a warning in `/reqd:status`. Leads to a `/reqd:sync` command that diffs the updated requirements against the current spec and prompts for re-translation if scope changed.
+
+### Change Name Inference
+
+Make `<name>` optional across all reqd commands. If exactly one change is `in-progress`,
+use it automatically. If multiple, list them and ask the engineer to pick. Removes the need
+to type the change name on every command during normal single-change workflows.
 
 ### Multi-Stakeholder Sign-off
 
